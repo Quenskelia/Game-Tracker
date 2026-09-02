@@ -2,6 +2,7 @@ var express = require('express');
 require('dotenv').config();
 
 var app = express();
+app.use(express.static('public'));
 var PORT = 3000;
 
 var STEAM_API_KEY = process.env.STEAM_API_KEY;
