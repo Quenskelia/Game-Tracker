@@ -1,0 +1,86 @@
+:root {
+  --bg-color: #0d0d0d;
+  --card-bg: #1a1a1e;
+  --accent: #7c3aed;
+  --text-color: #e5e5e5;
+  --border-color: #2e2e33;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+h2 {
+  color: var(--accent);
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.profile-card {
+  display: grid;
+  grid-template-columns: 150px 250px 1fr;
+  grid-template-areas:
+    "pic info hill"
+    "list list list";
+  gap: 15px;
+}
+
+.profile-pic {
+  grid-area: pic;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+.info-column {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#last-played,
+.bio {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.king-of-the-hill-panel {
+  grid-area: hill;
+  background-color: var(--card-bg);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.game-list-section {
+  grid-area: list;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.game-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.game-item:hover {
+  background-color: #232328;
+}

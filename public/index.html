@@ -4,18 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Tracker</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1> My Game Library</h1>
 
-    <div id="last-played"></div>
+    <div class="profile-card">
+      <div class="profile-pic" id="profile-pic">Profile Picture</div>
+    
 
+    <div class="info-column">
+    <div id="last-played"></div>
+    <div class="bio" id="bio"> Bio Here! </div>
+    </div>
+
+    <div class="king-of-the-hill-panel">
     <h2>King of the Hill</h2>
     <div id="king-of-the-hill"></div>
+    </div>
 
-    <h2>Rest Of Da Games</h2>
-    <div id="game-list"></div>
-
+    <div class="game-list-section">
+      <h2>Rest Of Da Games</h2>
+      <div id="game-list"></div>
+    </div>
+</div>
 
     <script src="gameload.js"></script>
     
