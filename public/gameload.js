@@ -1,3 +1,5 @@
+var allGames = [];
+
 function loadGames() {
     fetch('/api/games')
       .then(function (response) {
@@ -9,6 +11,8 @@ function loadGames() {
         games.sort(function (a, b) {
             return b.playtime_forever - a.playtime_forever;
         });
+
+        allGames = games;
 
         var kingOfTheHill = games[0];
         var restOfGames = games.slice(1);
@@ -79,5 +83,79 @@ function getTimeAgoText(unixTimestamp){
       container.appendChild(gameDiv)
       }
   }
+function pickRandomGame() {
+  if (allGames.length === 0) {
+    return;
+  }
+
+  var randomIndex = Math.floor(Math.random() * allGames.length);
+  var chosenGame = allGames[randomIndex];
+
+  showGameDetails(chosenGame);
+}
+
+function showGameDetails(game) {
+  var panel = document.getElementById('game-details');
+  var hours = Math.floor(game.playtime_forever / 60);
+  var minutes = game.playtime_forever % 60;
+
+  panel.innerHTML = '';
+
+  var title = document.createElement('h3');
+  title.textContent = game.name;
+
+  var playtime = document.createElement('p');
+  playtime.textContent = 'Playtime: ' + hours + 'hrs ' + minutes + 'min';
+
+  var summary = document.createElement('p');
+  summary.textContent = 'Loading summary...';
+
+  var guideLink = document.createElement('a');
+  guideLink.href = 'https://steamcommunity.com/app/' + game.appid + '/guides/';
+  guideLink.target = '_blank';
+  guideLink.rel = 'noopener';
+  guideLink.textContent = 'Steam community guides';
+
+  panel.appendChild(title);
+  panel.appendChild(playtime);
+  panel.appendChild(summary);
+  panel.appendChild(guideLink);
+
+  loadGameSummary(game.appid, summary);
+}
+
+function loadGameSummary(appid, summaryElement) {
+  fetch('/api/game/' + appid)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (info) {
+      if (info.error) {
+        summaryElement.textContent = 'No summary available for this game.';
+      } else {
+        summaryElement.textContent = decodeHtml(info.short_description);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      summaryElement.textContent = 'Could not load the summary.';
+    });
+}
+
+function decodeHtml(text) {
+  var temp = document.createElement('textarea');
+  temp.innerHTML = text;
+  return temp.value;
+}
 
 loadGames();
+
+document.getElementById('random-button');
+var randomButton = document.getElementById('random-button');
+
+if (randomButton) {
+  randomButton.addEventListener('click', pickRandomGame);
+} else {
+ 
+console.log('Could not find #random-button on the page');
+}

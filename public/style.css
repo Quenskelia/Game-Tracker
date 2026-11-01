@@ -4,6 +4,7 @@
   --accent: #7c3aed;
   --text-color: #e5e5e5;
   --border-color: #2e2e33;
+  --accent-light: #a78bfa;
 }
 
 body {
@@ -27,8 +28,9 @@ h2 {
 .profile-card {
   display: grid;
   grid-template-columns: 150px 250px 1fr;
-  grid-template-areas:
+   grid-template-areas:
     "pic info hill"
+    "pick pick pick"
     "list list list";
   gap: 15px;
 }
@@ -83,4 +85,28 @@ h2 {
 
 .game-item:hover {
   background-color: #232328;
+}
+.pick-section {
+  grid-area: pick;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+#random-button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#random-button:hover {
+  opacity: 0.85;
+}
+#game-details a {
+  color: var(--accent-light);
 }

@@ -27,6 +27,45 @@ app.get('/api/games', function (req, res) {
     
 });
 
+app.get('/api/game/:appid', function (req, res) {
+    var appid = req.params.appid;
+
+    if (!/^[0-9]+$/.test(appid)) {
+        res.status(400).json({ error: 'App ID must be a number'});
+    
+    return;
+    }
+
+    var storeUrl = 'https://store.steampowered.com/api/appdetails?appids=' + appid;
+
+    fetch(storeUrl)
+    .then(function (storeResponse) {
+        return storeResponse.json();
+    })
+    .then(function (data){
+        var entry = data[appid];
+
+        if (entry && entry.success) {
+            var info = entry.data;
+            res.json({
+                name: info.name,
+                short_description: info.short_description,
+                genres: info.genres,
+                header_image: info.header_image,
+                release_date: info.release_date
+            });
+        } else {
+            res.status(404).json({ error: 'No store deatils found for this game'});
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Could not reach the Steam store' });
+            
+        
+    });
+});
+
 app.listen(PORT, function () {
     console.log('Server running on http://localhost:' + PORT);
 });
